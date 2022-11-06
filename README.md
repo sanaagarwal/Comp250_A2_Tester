@@ -8,3 +8,6 @@ So far it has testers for:
   3. locateJoker()      // edge case if the deck is empty
   4. locateJoker()      // edge case if there is no joker in the deck
   5. generateNextKeystreamValue()
+  
+  ## How to use:
+  You can either download the file and add it in your main package, or copy the code and create your own class. If you create your own class, make sure to rename the class that has the main method in it as well. 
