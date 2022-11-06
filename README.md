@@ -5,8 +5,7 @@ So far it has testers for:
 
   1. tripleCut()
   2. countCut()
-  3. locateJoker()      // edge case if the deck is empty
-  4. locateJoker()      // edge case if there is no joker in the deck
+  3. locateJoker()      // edge cases if the deck is empty and if there is no joker in the deck
   5. generateNextKeystreamValue()
   
   ## How to use:
