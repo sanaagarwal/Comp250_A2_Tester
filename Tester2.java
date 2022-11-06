@@ -114,6 +114,8 @@ class TripleCut3 implements Runnable {
 class CountCut1 implements Runnable{
     @Override
     public void run() {
+        // regular case
+        
         Deck deck = new Deck();
 
         Deck.Card c1 = deck.new PlayingCard(Deck.suitsInOrder[0], 1); //AC
@@ -127,9 +129,7 @@ class CountCut1 implements Runnable{
         deck.addCard(c2);      // Deck : AC AH 2H 2C
 
         deck.countCut();       // Cut 2 numbers from the top
-
-        // test whether all the cards are in the right order
-
+        
         boolean head = deck.head == c4;
         boolean tail = deck.head.prev == c2;
         boolean c4Ref = c4.prev == c2 && c4.next == c1;
@@ -175,7 +175,7 @@ class CountCut2 implements Runnable {
 class CountCut3 implements Runnable{
     @Override
     public void run() {
-        // when the value of the last card is 1
+        // when the number for cut is 1
 
         Deck deck = new Deck();
 
