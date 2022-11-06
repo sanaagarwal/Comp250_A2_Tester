@@ -115,7 +115,7 @@ class CountCut1 implements Runnable{
     @Override
     public void run() {
         // regular case
-        
+
         Deck deck = new Deck();
 
         Deck.Card c1 = deck.new PlayingCard(Deck.suitsInOrder[0], 1); //AC
@@ -129,7 +129,7 @@ class CountCut1 implements Runnable{
         deck.addCard(c2);      // Deck : AC AH 2H 2C
 
         deck.countCut();       // Cut 2 numbers from the top
-        
+
         boolean head = deck.head == c4;
         boolean tail = deck.head.prev == c2;
         boolean c4Ref = c4.prev == c2 && c4.next == c1;
@@ -194,7 +194,7 @@ class CountCut3 implements Runnable{
     }
 }
 
-class LocateJoker implements Runnable {
+class LocateJoker1 implements Runnable {
     @Override
     public void run() {
         // edge case where deck is empty, must return null
@@ -209,7 +209,49 @@ class LocateJoker implements Runnable {
     }
 }
 
-public class Tester2 {
+class LocateJoker2 implements Runnable {
+    @Override
+    public void run() {
+        // edge case where there is no joker in the deck, must return null
+        Deck deck = new Deck();
+        Deck.Card c1 = deck.new PlayingCard(Deck.suitsInOrder[0], 1); //AC
+        Deck.Card c2 = deck.new PlayingCard(Deck.suitsInOrder[0], 2); //2C
+        Deck.Card c3 = deck.new PlayingCard(Deck.suitsInOrder[0], 3); //3C
+
+        deck.addCard(c1);
+        deck.addCard(c2);
+        deck.addCard(c3);
+
+        deck.locateJoker("red");
+
+        if (deck.locateJoker("red") != null) {
+            throw new AssertionError("The method locateJoker() is not returning null when the there is no joker");
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
+class GenerateNextKeystreamValue1 implements Runnable {
+    @Override
+    public void run() {
+        // example case from the last page of pdf
+        // create final seed of 10 for deck.shuffle()
+
+        Deck deck = new Deck(5, 2);
+
+        int seed = 10;
+        Deck.gen.setSeed(seed);
+        deck.shuffle();
+        deck.generateNextKeystreamValue();
+
+        if (deck.generateNextKeystreamValue() != 4) {
+            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 4 but got " + deck.generateNextKeystreamValue());
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
+public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
     static String[] tests = {
             "assignment2.TripleCut1",
@@ -218,7 +260,9 @@ public class Tester2 {
             "assignment2.CountCut1",
             "assignment2.CountCut2",
             "assignment2.CountCut3",
-            "assignment2.LocateJoker"
+            "assignment2.LocateJoker1",
+            "assignment2.LocateJoker2",
+            "assignment2.GenerateNextKeystreamValue1"
     };
 
     public static void main(String[] args) {
