@@ -239,14 +239,15 @@ class GenerateNextKeystreamValue1 implements Runnable {
         // example case from the last page of pdf
 
         Deck deck = new Deck(5, 2);
+        // AC 2C 3C 4C 5C AD 2D 3D 4D 5D RJ BJ
 
         int seed = 10;
         Deck.gen.setSeed(seed);
+        deck.shuffle();     // 3C 3D AD 5C BJ 2C 2D 4D AC RJ 4C 5D
 
-        deck.shuffle();
-        // deck.generateNextKeystreamValue();
+        int value = deck.generateNextKeystreamValue();
 
-        if (deck.generateNextKeystreamValue() != 4) {
+        if (value != 4) {
             throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 4 but got " + deck.generateNextKeystreamValue());
         }
         System.out.println("assignment2.Test passed.");
@@ -256,15 +257,15 @@ class GenerateNextKeystreamValue1 implements Runnable {
 class GenerateNextKeystreamValue2 implements Runnable {
     @Override
     public void run() {
-        Deck deck = new Deck(1, 1);
+        Deck deck = new Deck(1, 1); // AC RJ BJ
 
         int seed = 31;
         Deck.gen.setSeed(seed);
+        deck.shuffle();         // RJ BJ AC
 
-        deck.shuffle();
-        deck.generateNextKeystreamValue();
+        int value = deck.generateNextKeystreamValue();
 
-        if (deck.generateNextKeystreamValue() != 1) {
+        if (value != 1) {
             throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 1 but got " + deck.generateNextKeystreamValue());
         } else if (deck.head != deck.locateJoker("red")) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
@@ -276,12 +277,12 @@ class GenerateNextKeystreamValue2 implements Runnable {
 class GenerateNextKeystreamValue3 implements Runnable {
     @Override
     public void run() {
-        Deck deck = new Deck(2, 2);
+        Deck deck = new Deck(2, 2); // AC 2C AD 2D RJ BJ
 
         int seed = 26;
         Deck.gen.setSeed(seed);
+        deck.shuffle();        // BJ 2C 2D AD RJ AC
 
-        deck.shuffle();
         int value = deck.generateNextKeystreamValue();
 
         if (value != 2) {
@@ -312,8 +313,7 @@ class GenerateNextKeystreamValue4 implements Runnable {
         deck.addCard(card4);
         deck.addCard(card5);
         deck.addCard(bJoker);
-        deck.addCard(card6);
-
+        deck.addCard(card6);        // AC 2C 3C RJ AD 2D BJ 3D
 
         int value = deck.generateNextKeystreamValue();
 
@@ -339,7 +339,8 @@ public class A2_Tester2 {
             "assignment2.LocateJoker2",
             "assignment2.GenerateNextKeystreamValue1",
             "assignment2.GenerateNextKeystreamValue2",
-            "assignment2.GenerateNextKeystreamValue3"
+            "assignment2.GenerateNextKeystreamValue3",
+            "assignment2.GenerateNextKeystreamValue4"
     };
 
     public static void main(String[] args) {
