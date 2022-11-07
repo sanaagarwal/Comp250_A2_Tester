@@ -17,9 +17,9 @@ class TripleCut1 implements Runnable {
         deck.addCard(c1);
         deck.addCard(c2);
         deck.addCard(c3);
-        deck.addCard(c4);
+        deck.addCard(c4);   // AC 2C AH 2H
 
-        deck.tripleCut(c1, c3);
+        deck.tripleCut(c1, c3); // Expected outcome: 2H AC 2C AH
 
         // test whether all the cards are in the right order
         boolean head = deck.head == c4;
@@ -53,9 +53,9 @@ class TripleCut2 implements Runnable {
         deck.addCard(c1);
         deck.addCard(c2);
         deck.addCard(c3);
-        deck.addCard(c4);
+        deck.addCard(c4); // AC 2C AH 2H
 
-        deck.tripleCut(c2, c4);
+        deck.tripleCut(c2, c4); // Expected Outcome: 2C AH 2H AC
 
         boolean head = deck.head == c2;
         boolean tail = deck.head.prev == c1;
