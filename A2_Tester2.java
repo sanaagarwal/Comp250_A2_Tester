@@ -288,7 +288,7 @@ class GenerateNextKeystreamValue1 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 4) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 4 but got " + deck.generateNextKeystreamValue());
+            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 4 but got " + value );
         }
         System.out.println("assignment2.Test passed.");
     }
@@ -306,7 +306,7 @@ class GenerateNextKeystreamValue2 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 1) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 1 but got " + deck.generateNextKeystreamValue());
+            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 1 but got " + value );
         } else if (deck.head != deck.locateJoker("red")) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
@@ -326,7 +326,7 @@ class GenerateNextKeystreamValue3 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 2) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 2 but got " + deck.generateNextKeystreamValue());
+            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 2 but got " + value);
         } else if (deck.head.getValue() != 14) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
@@ -358,7 +358,7 @@ class GenerateNextKeystreamValue4 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 16) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 2 but got " + deck.generateNextKeystreamValue());
+            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 2 but got " + value);
         } else if (deck.head.getValue() != 16) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
