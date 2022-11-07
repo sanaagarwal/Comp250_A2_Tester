@@ -131,7 +131,7 @@ class CountCut1 implements Runnable{
         deck.addCard(c2);      // Deck : AC AH 2H 2C
 
         deck.countCut();       // Cut 2 numbers from the top (taking value of 2C)
-                                // Expected Deck Outcome : 2H 2C AC AH
+                                // Expected Deck Outcome : 2H AC AH 2C
 
         boolean head = deck.head == c4;
         boolean tail = deck.head.prev == c2;
