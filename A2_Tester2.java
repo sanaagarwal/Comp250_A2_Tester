@@ -130,6 +130,9 @@ class TripleCut4 implements Runnable {
         deck.addCard(c3);
 
         deck.tripleCut(c2, c2);
+        // Expected deck arrangement:
+        // head = c3, c2, c1
+        // AH, 2C, AC
 
         boolean head = deck.head == c3;
         boolean tail = deck.head.prev == c1;
