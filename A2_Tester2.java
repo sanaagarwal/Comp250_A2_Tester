@@ -113,6 +113,40 @@ class TripleCut3 implements Runnable {
     }
 }
 
+
+class TripleCut4 implements Runnable {
+    @Override
+    public void run() {
+        // For the edge case of tripleCut() there are three cards and firstCard
+        // and secondCard are the same
+
+        Deck deck = new Deck();
+        Deck.Card c1 = deck.new PlayingCard(Deck.suitsInOrder[0], 1); //AC
+        Deck.Card c2 = deck.new PlayingCard(Deck.suitsInOrder[0], 2); //2C
+        Deck.Card c3 = deck.new PlayingCard(Deck.suitsInOrder[2], 1); //AH
+
+        deck.addCard(c1);
+        deck.addCard(c2);
+        deck.addCard(c3);
+
+        deck.tripleCut(c2, c2);
+
+        boolean head = deck.head == c3;
+        boolean tail = deck.head.prev == c1;
+        boolean c1Ref = c1.prev == c2 && c1.next == c3;
+        boolean c2Ref = c2.prev == c3 && c2.next == c1;
+        boolean c3Ref = c3.prev == c1 && c3.next == c2;
+
+        if (!(head && tail)) {
+            throw new AssertionError("The head/tail is incorrect");
+        } else if (!(c1Ref && c2Ref && c3Ref)) {
+            throw new AssertionError("The pointers of the cards are incorrect");
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
+
 class CountCut1 implements Runnable{
     @Override
     public void run() {
@@ -332,6 +366,7 @@ public class A2_Tester2 {
             "assignment2.TripleCut1",
             "assignment2.TripleCut2",
             "assignment2.TripleCut3",
+            "assignment2.TripleCut4",
             "assignment2.CountCut1",
             "assignment2.CountCut2",
             "assignment2.CountCut3",
