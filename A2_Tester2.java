@@ -2,6 +2,71 @@ package assignment2;
 
 import java.util.Objects;
 
+class CreateDeck1 implements Runnable {
+    public void run() {
+        Deck deck = new Deck(4, 3);
+
+        if (deck.numOfCards != 14) {
+            throw new AssertionError("Deck is empty when it should have 14 cards");
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
+class CreateDeck2 implements Runnable {
+    public void run() {
+
+        Deck deck1 = new Deck();
+        Deck.PlayingCard card1 = deck1.new PlayingCard("clubs", 1); // AC
+        Deck.PlayingCard card2 = deck1.new PlayingCard("clubs", 2); // 2C
+        Deck.PlayingCard card3 = deck1.new PlayingCard("diamonds", 1); // AD
+        Deck.PlayingCard card4 = deck1.new PlayingCard("diamonds", 2); // 2D
+        Deck.Joker rJoker = deck1.new Joker("red"); // RJ
+        Deck.Joker bJoker = deck1.new Joker("black"); // BJ
+        deck1.addCard(card1);
+        deck1.addCard(card2);
+        deck1.addCard(card3);
+        deck1.addCard(card4);
+        deck1.addCard(rJoker);
+        deck1.addCard(bJoker);       // AC 2C AD 2D RJ BJ
+
+        Deck deck2 = new Deck(2, 2); // AC 2C AD 2D RJ BJ
+
+        if (deck1.head.getValue() != deck2.head.getValue()) {
+            throw new AssertionError("Head of the deck is incorrect");
+        }
+
+        for (int i = 1; i < deck1.numOfCards + 1; i++) {
+            if (deck1.head.getValue() != deck2.head.getValue()) {
+                throw new AssertionError("The deck is not correctly created."
+                        + "The card at position " + i + " is incorrect");
+            }
+            deck1.head = deck1.head.next;
+            deck2.head = deck2.head.next;
+
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
+class CreateDeck3 implements Runnable {
+    @Override
+    public void run() {
+        // checking if exception is thrown by the constructor
+        try {
+            Deck deck1 = new Deck(14, 1);
+        } catch (IllegalArgumentException raiseException) {
+            System.out.println("assignment2.Test passed.");
+        }
+
+        try {
+            Deck deck1 = new Deck(2, 6);
+        } catch (IllegalArgumentException raiseException) {
+            System.out.println("assignment2.Test passed.");
+        }
+    }
+}
+
 class TripleCut1 implements Runnable {
     @Override
     public void run() {
@@ -287,8 +352,10 @@ class GenerateNextKeystreamValue1 implements Runnable {
 
         int value = deck.generateNextKeystreamValue();
 
+
         if (value != 4) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 4 but got " + value );
+            throw new AssertionError("The method generateNextKeystreamValue() " +
+                    "is not returning the correct value. Expected value is 4 but got " + value);
         }
         System.out.println("assignment2.Test passed.");
     }
@@ -306,7 +373,8 @@ class GenerateNextKeystreamValue2 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 1) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 1 but got " + value );
+            throw new AssertionError("The method generateNextKeystreamValue() is " +
+                    "not returning the correct value. Expected value is 1 but got " + value);
         } else if (deck.head != deck.locateJoker("red")) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
@@ -326,7 +394,8 @@ class GenerateNextKeystreamValue3 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 2) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 2 but got " + value);
+            throw new AssertionError("The method generateNextKeystreamValue() is " +
+                    "not returning the correct value. Expected value is 2 but got " + value);
         } else if (deck.head.getValue() != 14) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
@@ -358,7 +427,8 @@ class GenerateNextKeystreamValue4 implements Runnable {
         int value = deck.generateNextKeystreamValue();
 
         if (value != 16) {
-            throw new AssertionError("The method generateNextKeystreamValue() is not returning the correct value. Expected value is 2 but got " + value);
+            throw new AssertionError("The method generateNextKeystreamValue() is " +
+                    "not returning the correct value. Expected value is 2 but got " + value);
         } else if (deck.head.getValue() != 16) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
@@ -415,6 +485,9 @@ class EncodingTest2 implements Runnable
 public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
     static String[] tests = {
+            "assignment2.CreateDeck1",
+            "assignment2.CreateDeck2",
+            "assignment2.CreateDeck3",
             "assignment2.TripleCut1",
             "assignment2.TripleCut2",
             "assignment2.TripleCut3",
