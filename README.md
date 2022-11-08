@@ -11,7 +11,7 @@ Deck class
   5. generateNextKeystreamValue()
   
 
-SolitaireCipher
+SolitaireCipher class
   1. getKeystream(int size)
   2. encode(String msg) and decode(String msg)
   
