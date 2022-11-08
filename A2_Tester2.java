@@ -1,5 +1,6 @@
 package assignment2;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 class CreateDeck1 implements Runnable {
@@ -236,7 +237,7 @@ class CountCut1 implements Runnable{
         deck.addCard(c2);      // Deck : AC AH 2H 2C
 
         deck.countCut();       // Cut 2 numbers from the top (taking value of 2C)
-                                // Expected Deck Outcome : 2H AC AH 2C
+        // Expected Deck Outcome : 2H AC AH 2C
 
         boolean head = deck.head == c4;
         boolean tail = deck.head.prev == c2;
@@ -482,6 +483,31 @@ class EncodingTest2 implements Runnable
     }
 }
 
+class GetKeystream implements Runnable{
+    @Override
+    public void run() {
+        // example case from the last page of pdf
+
+        Deck deck = new Deck(5, 2);
+        // AC 2C 3C 4C 5C AD 2D 3D 4D 5D RJ BJ
+
+        int seed = 10;
+        Deck.gen.setSeed(seed);
+        deck.shuffle();     // 3C 3D AD 5C BJ 2C 2D 4D AC RJ 4C 5D
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+        int[] keystream = cipher.getKeystream(12);
+
+        int[] expected = {4, 4, 15, 3, 3, 2, 1, 14, 16, 17, 17, 14};
+
+        if (!Arrays.equals(keystream, expected)) {
+            throw new AssertionError("The method getKeystream() is not returning the correct keystream");
+        }
+
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
 public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
     static String[] tests = {
@@ -502,7 +528,8 @@ public class A2_Tester2 {
             "assignment2.GenerateNextKeystreamValue3",
             "assignment2.GenerateNextKeystreamValue4",
             "assignment2.EncodingTest1",
-            "assignment2.EncodingTest2"
+            "assignment2.EncodingTest2",
+            "assignment2.GetKeystream"
     };
 
     public static void main(String[] args) {
