@@ -1,8 +1,6 @@
 package assignment2;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
-import java.util.Objects;
 
 class CreateDeck1 implements Runnable {
     public void run() {
