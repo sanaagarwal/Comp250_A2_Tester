@@ -7,8 +7,8 @@ So far it has testers for:
   1. `Deck(int numOfCardsPerSuit, int numOfSuits)`
   2. `tripleCut(Card firstCard, Card secondCard)`
   3. `countCut()`
-  4. `locateJoker(String color)` // edge cases if the deck is empty and if there is no joker in the deck 
-  5. `generateNextKeystreamValue()`
+  4. `locateJoker(String color)` 
+  5. `generateNextKeystreamValue()` 
   
 
 #### SolitaireCipher class
