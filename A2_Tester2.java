@@ -551,11 +551,11 @@ public class A2_Tester2 {
 
         if (numPassed == tests.length) {
             System.out.println("A little cryptic message for you to decode using a full deck of cards shuffled with seed 1234:");
-            System.out.println("Note: They are all separate messages. Decode them using different cipher objects.");
             System.out.println("GBEHNIGSWUKOEEY");
             System.out.println("CBLNWLRGE");
             System.out.println("KEVBPRBZ");
             System.out.println("CBLTHIL");
+            System.out.println("Note: They are all separate messages. Decode them using different cipher objects.");
             System.out.println("========================================");
         }
 
