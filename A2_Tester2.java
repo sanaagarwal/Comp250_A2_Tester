@@ -365,12 +365,13 @@ class GenerateNextKeystreamValue2 implements Runnable {
     @Override
     public void run() {
         Deck deck = new Deck(1, 1); // AC RJ BJ
-
+        
         int seed = 31;
         Deck.gen.setSeed(seed);
         deck.shuffle();         // RJ BJ AC
 
-        int value = deck.generateNextKeystreamValue();
+        int value = deck.generateNextKeystreamValue();      // case where lookupCard() hits a joker (two times to be exact)
+                                                            // and must repeat the keystream algorithm
 
         if (value != 1) {
             throw new AssertionError("The method generateNextKeystreamValue() is " +
