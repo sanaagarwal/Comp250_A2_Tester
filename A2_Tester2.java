@@ -366,6 +366,52 @@ class GenerateNextKeystreamValue4 implements Runnable {
     }
 }
 
+class EncodingTest1 implements Runnable
+{
+    @Override
+    public void run()
+    {
+        Deck deck = new Deck(5,3);
+        String message = "Heya! Love", decodedMessage="HEYALOVE";
+
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+
+        String encodedMessage= (cipher.encode(message));
+        cipher = new SolitaireCipher(deck);
+        String decodeAttempt=cipher.decode(encodedMessage);
+
+        if(!decodeAttempt.equals(decodedMessage))
+            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: LVQCZRNF. I received "+encodedMessage+"\n" +
+                    "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
+
+        System.out.println("Test passed!");
+
+
+    }
+}
+class EncodingTest2 implements Runnable
+{
+    @Override
+    public void run()
+    {
+        Deck deck = new Deck(1,1);
+        String message = "Heya! L%$@!%:ove(!#%$", decodedMessage="HEYALOVE";
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+
+        String encodedMessage= (cipher.encode(message));
+        System.out.println(encodedMessage);
+        cipher = new SolitaireCipher(deck);
+        String decodeAttempt=cipher.decode(encodedMessage);
+
+        if(!decodeAttempt.equals(decodedMessage))
+            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: IFZBMPWF. I received "+encodedMessage+"\n" +
+                    "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
+
+    }
+}
+
 public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
     static String[] tests = {
@@ -381,7 +427,9 @@ public class A2_Tester2 {
             "assignment2.GenerateNextKeystreamValue1",
             "assignment2.GenerateNextKeystreamValue2",
             "assignment2.GenerateNextKeystreamValue3",
-            "assignment2.GenerateNextKeystreamValue4"
+            "assignment2.GenerateNextKeystreamValue4",
+            "assignment2.EncodingTest1",
+            "assignment2.EncodingTest2"
     };
 
     public static void main(String[] args) {
