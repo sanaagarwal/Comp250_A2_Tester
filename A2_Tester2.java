@@ -1,5 +1,6 @@
 package assignment2;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -433,34 +434,32 @@ class GenerateNextKeystreamValue4 implements Runnable {
         } else if (deck.head.getValue() != 16) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
-        System.out.println("Test passed!");
+        System.out.println("assignment2.Test passed.");
     }
 }
 
-class EncodingTest1 implements Runnable
-{
+class EncodingTest1 implements Runnable {
     @Override
-    public void run()
-    {
-        Deck deck = new Deck(5,3);
-        String message = "Heya! Love", decodedMessage="HEYALOVE";
+    public void run() {
+        Deck deck = new Deck(5, 3);
+        String message = "Heya! Love", decodedMessage = "HEYALOVE";
 
 
         SolitaireCipher cipher = new SolitaireCipher(deck);
+        String encodedMessage = (cipher.encode(message));
 
-        String encodedMessage= (cipher.encode(message));
         cipher = new SolitaireCipher(deck);
-        String decodeAttempt=cipher.decode(encodedMessage);
+        String decodeAttempt = cipher.decode(encodedMessage);
 
-        if(!decodeAttempt.equals(decodedMessage))
-            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: LVQCZRNF. I received "+encodedMessage+"\n" +
-                    "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
-
-        System.out.println("Test passed!");
-
-
+        if (!decodeAttempt.equals(decodedMessage)) {
+            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: LVQCZRNF. I received " + encodedMessage + "\n" +
+                    "Expected decode output: HEYALOVE. I received: " + decodeAttempt);
+        }
+        System.out.println("assignment2.Test passed.");
     }
 }
+
+
 class EncodingTest2 implements Runnable
 {
     @Override
@@ -470,15 +469,16 @@ class EncodingTest2 implements Runnable
         String message = "Heya! L%$@!%:ove(!#%$", decodedMessage="HEYALOVE";
 
         SolitaireCipher cipher = new SolitaireCipher(deck);
-
         String encodedMessage= (cipher.encode(message));
-        System.out.println(encodedMessage);
+
         cipher = new SolitaireCipher(deck);
         String decodeAttempt=cipher.decode(encodedMessage);
 
-        if(!decodeAttempt.equals(decodedMessage))
+        if(!decodeAttempt.equals(decodedMessage)) {
             throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: IFZBMPWF. I received "+encodedMessage+"\n" +
                     "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
+        }
+        System.out.println("assignment2.Test passed.");
 
     }
 }
@@ -548,5 +548,17 @@ public class A2_Tester2 {
             }
         }
         System.out.printf("%n%n%d of %d tests passed.%n", numPassed, tests.length);
+        System.out.println("");
+
+        if (numPassed == tests.length) {
+            System.out.println("A little cryptic message for you to decode using a full deck of cards shuffled with seed 1234:");
+            System.out.println("Note: They are all separate messages. Decode them using different cipher objects.");
+            System.out.println("GBEHNIGSWUKOEEY");
+            System.out.println("CBLNWLRGE");
+            System.out.println("KEVBPRBZ");
+            System.out.println("CBLTHIL");
+            System.out.println("========================================");
+        }
+
     }
 }
