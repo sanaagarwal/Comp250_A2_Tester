@@ -471,15 +471,15 @@ class GetKeystream2 implements Runnable {
         Deck.gen.setSeed(seed);
         deck1.shuffle();
 
-        SolitaireCipher cipher = new SolitaireCipher(deck1);
-        int [] keystream1 = cipher.getKeystream(5);
+        SolitaireCipher cipher1 = new SolitaireCipher(deck1);
+        int [] keystream1 = cipher1.getKeystream(5);
 
         SolitaireCipher cipher2 = new SolitaireCipher(deck1);
         int[] keystream2 = cipher2.getKeystream(5);
 
         if (!Arrays.equals(keystream1, keystream2)) {
             throw new AssertionError("The keystream values of the 2 ciphers are not the same. " +
-                    "\nExpected: [8, 10, 21, 16, 21] for both. \nGot " + Arrays.toString(keystream1) + 
+                    "\nExpected: [8, 10, 21, 16, 21] for both. \nGot " + Arrays.toString(keystream1) +
                     " for keystream1 and " + Arrays.toString(keystream2) + " for keystream2");
         }
         System.out.println("assignment2.Test passed.");
@@ -491,7 +491,6 @@ class EncodingAndDecodingTest1 implements Runnable {
     public void run() {
         Deck deck = new Deck(5, 3);
         String message = "Heya! Love", decodedMessage = "HEYALOVE";
-
 
         SolitaireCipher cipher = new SolitaireCipher(deck);
         String encodedMessage = (cipher.encode(message));
@@ -527,25 +526,36 @@ class EncodingAndDecodingTest2 implements Runnable
                     "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
         }
         System.out.println("assignment2.Test passed.");
-
     }
 }
+
 class SolitaireCipher1 implements Runnable {
     @Override
     public void run() {
         Deck deck = new Deck(5, 2);
+        // AC 2C 3C 4C 5C AD 2D 3D 4D 5D RJ BJ
 
         int seed = 123;
         Deck.gen.setSeed(seed);
-        deck.shuffle();
+        deck.shuffle();  // AD RJ 2C 4C 3D AC 5C BJ 4D 2D 5D 3C
 
         String message = "You are amazing!", message2 = "YOUAREAMAZING";
 
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+        int[] keystream = cipher.getKeystream(message2.length());
+        int[] expected = {2, 4, 15, 16, 15, 4, 4, 16, 4, 3, 4, 1, 5};
+
         SolitaireCipher cipher1 = new SolitaireCipher(deck);
         String encodedMessage = cipher1.encode(message);
+        // The expected keystream should be the same keystream used by the cipher1 for encoding
 
         SolitaireCipher cipher2 = new SolitaireCipher(deck);
         String decodedMessage = cipher2.decode(encodedMessage);
+        // The expected keystream should be the same keystream used by the cipher2 for decoding
+
+        if (!Arrays.equals(keystream, expected)) {
+            throw new AssertionError("The method getKeystream() is not returning the correct keystream");
+        }
 
         if (!encodedMessage.equals("ASJQGIECECMOL")) {
             throw new AssertionError("The encoded message is not correct");
@@ -556,6 +566,31 @@ class SolitaireCipher1 implements Runnable {
         System.out.println("assignment2.Test passed.");
     }
 }
+
+class SolitaireCipher2 implements Runnable{
+    public void run() {
+        // example case from the last page of pdf
+
+        Deck deck = new Deck(5, 2);
+        // AC 2C 3C 4C 5C AD 2D 3D 4D 5D RJ BJ
+
+        int seed = 10;
+        Deck.gen.setSeed(seed);
+        deck.shuffle();     // 3C 3D AD 5C BJ 2C 2D 4D AC RJ 4C 5D
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+        int[] keystream = cipher.getKeystream(12);
+
+        int[] expected = {4, 4, 15, 3, 3, 2, 1, 14, 16, 17, 17, 14};
+
+        if (!Arrays.equals(keystream, expected)) {
+            throw new AssertionError("The method getKeystream() is not returning the correct keystream");
+        }
+
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
 
 public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
