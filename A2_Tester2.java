@@ -429,7 +429,7 @@ class GenerateNextKeystreamValue4 implements Runnable {
 
         if (value != 16) {
             throw new AssertionError("The method generateNextKeystreamValue() is " +
-                    "not returning the correct value. Expected value is 2 but got " + value);
+                    "not returning the correct value. Expected value is 16 but got " + value);
         } else if (deck.head.getValue() != 16) {
             throw new AssertionError("Incorrect head after generateNextKeystreamValue()");
         }
