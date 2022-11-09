@@ -591,6 +591,43 @@ class SolitaireCipher2 implements Runnable{
     }
 }
 
+class SolitaireCipher3 implements Runnable {
+    @Override
+    public void run()    {
+        Deck deck = new Deck(2,1);
+
+        int seed = 1234;
+        Deck.gen.setSeed(seed);
+        deck.shuffle();
+
+        String message = "mari[o]  a(n)d><{lu~/ig}i", message2 = "MARIOANDLUIGI";
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+        int[] keystream = cipher.getKeystream(message2.length());
+        int[] expected = {1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1};
+
+        SolitaireCipher cipher1 = new SolitaireCipher(deck);
+        SolitaireCipher cipher2 = new SolitaireCipher(deck);
+
+        String encodedMessage = cipher1.encode(message);
+        String decodedMessage = cipher2.decode(encodedMessage);
+
+        System.out.println("Your encoded message was: " + encodedMessage);
+        System.out.println("Your decoded message was: " + decodedMessage);
+
+        if (!Arrays.equals(keystream, expected)) {
+            throw new AssertionError("The method getKeystream() is not returning the correct keystream");
+        }
+        if(!(encodedMessage.equals("NBTKPBPFMVKIJ"))) {
+            throw new AssertionError("The encoded message is not correct");
+        }
+        if (!decodedMessage.equals(message2)) {
+            throw new AssertionError("The decoded message is not correct");
+        }
+        System.out.println("Mario and Luigi Test passed :)");
+    }
+}
+
 
 public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
@@ -615,7 +652,9 @@ public class A2_Tester2 {
             "assignment2.GetKeystream2",
             "assignment2.EncodingAndDecodingTest1",
             "assignment2.EncodingAndDecodingTest2",
-            "assignment2.SolitaireCipher1"
+            "assignment2.SolitaireCipher1",
+            "assignment2.SolitaireCipher2",
+            "assignment2.SolitaireCipher3"
 
     };
 
