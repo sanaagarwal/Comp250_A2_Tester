@@ -2,6 +2,8 @@ package assignment2;
 
 import java.util.Arrays;
 
+// =========================== DECK CLASS TESTS ================================
+
 class CreateDeck1 implements Runnable {
     public void run() {
         Deck deck = new Deck(4, 3);
@@ -437,50 +439,9 @@ class GenerateNextKeystreamValue4 implements Runnable {
     }
 }
 
-class EncodingTest1 implements Runnable {
-    @Override
-    public void run() {
-        Deck deck = new Deck(5, 3);
-        String message = "Heya! Love", decodedMessage = "HEYALOVE";
 
+// =========================== SOLITAIRE CIPHER CLASS TESTS ================================
 
-        SolitaireCipher cipher = new SolitaireCipher(deck);
-        String encodedMessage = (cipher.encode(message));
-
-        cipher = new SolitaireCipher(deck);
-        String decodeAttempt = cipher.decode(encodedMessage);
-
-        if (!decodeAttempt.equals(decodedMessage)) {
-            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: LVQCZRNF. I received " + encodedMessage + "\n" +
-                    "Expected decode output: HEYALOVE. I received: " + decodeAttempt);
-        }
-        System.out.println("assignment2.Test passed.");
-    }
-}
-
-
-class EncodingTest2 implements Runnable
-{
-    @Override
-    public void run()
-    {
-        Deck deck = new Deck(1,1);
-        String message = "Heya! L%$@!%:ove(!#%$", decodedMessage="HEYALOVE";
-
-        SolitaireCipher cipher = new SolitaireCipher(deck);
-        String encodedMessage= (cipher.encode(message));
-
-        cipher = new SolitaireCipher(deck);
-        String decodeAttempt=cipher.decode(encodedMessage);
-
-        if(!decodeAttempt.equals(decodedMessage)) {
-            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: IFZBMPWF. I received "+encodedMessage+"\n" +
-                    "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
-        }
-        System.out.println("assignment2.Test passed.");
-
-    }
-}
 
 class GetKeystream implements Runnable{
     @Override
@@ -507,6 +468,86 @@ class GetKeystream implements Runnable{
     }
 }
 
+class EncodingAndDecodingTest1 implements Runnable {
+    @Override
+    public void run() {
+        Deck deck = new Deck(5, 3);
+        String message = "Heya! Love", decodedMessage = "HEYALOVE";
+
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+        String encodedMessage = (cipher.encode(message));
+
+        cipher = new SolitaireCipher(deck);
+        String decodeAttempt = cipher.decode(encodedMessage);
+
+        if (!decodeAttempt.equals(decodedMessage)) {
+            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: LVQCZRNF. I received " + encodedMessage + "\n" +
+                    "Expected decode output: HEYALOVE. I received: " + decodeAttempt);
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
+
+class EncodingAndDecodingTest2 implements Runnable
+{
+    @Override
+    public void run()
+    {
+        Deck deck = new Deck(1,1);
+        String message = "Heya! L%$@!%:ove(!#%$", decodedMessage="HEYALOVE";
+
+        SolitaireCipher cipher = new SolitaireCipher(deck);
+        String encodedMessage= (cipher.encode(message));
+
+        cipher = new SolitaireCipher(deck);
+        String decodeAttempt=cipher.decode(encodedMessage);
+
+        if(!decodeAttempt.equals(decodedMessage)) {
+            throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: IFZBMPWF. I received "+encodedMessage+"\n" +
+                    "Expected decode output: HEYALOVE. I received: "+ decodeAttempt);
+        }
+        System.out.println("assignment2.Test passed.");
+
+    }
+}
+
+class SolitaireCipher1 implements Runnable {
+    @Override
+    public void run()    {
+        Deck deck1 = new Deck(2,2);
+
+        int seed = 10;
+        Deck.gen.setSeed(seed);
+        deck1.shuffle();
+
+        String message = "You are amazing!!", message2 = "YOUAREAMAZING";
+
+        SolitaireCipher cipher = new SolitaireCipher(deck1);
+        cipher.getKeystream(13);
+        String encodedMessage = cipher.encode(message);
+
+        SolitaireCipher cipher2 = new SolitaireCipher(deck1);
+        cipher2.getKeystream(13);
+        String decodedMessage = cipher2.decode(encodedMessage);
+
+        if (!Arrays.equals(cipher.getKeystream(13), cipher2.getKeystream(13))) {
+            throw new AssertionError("The keystream values used to encode and decode are not the same");
+        }
+
+        if (!encodedMessage.equals("NDWOGSPNCNKBU")) {
+            throw new AssertionError("The encoded message is not correct");
+        }
+
+        if (!decodedMessage.equals(message2)) {
+            throw new AssertionError("The decoded message is not correct");
+        }
+
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
 public class A2_Tester2 {
     // To skip running some tests, just comment them out below.
     static String[] tests = {
@@ -526,9 +567,11 @@ public class A2_Tester2 {
             "assignment2.GenerateNextKeystreamValue2",
             "assignment2.GenerateNextKeystreamValue3",
             "assignment2.GenerateNextKeystreamValue4",
-            "assignment2.EncodingTest1",
-            "assignment2.EncodingTest2",
-            "assignment2.GetKeystream"
+            "assignment2.GetKeystream",
+            "assignment2.EncodingAndDecodingTest1",
+            "assignment2.EncodingAndDecodingTest2",
+            "assignment2.SolitaireCipher1",
+            "assignment2.SolitaireCipher2",
     };
 
     public static void main(String[] args) {
