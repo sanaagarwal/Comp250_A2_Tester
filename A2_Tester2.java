@@ -2,8 +2,6 @@ package assignment2;
 
 import java.util.Arrays;
 
-// =========================== DECK CLASS TESTS ================================
-
 class CreateDeck1 implements Runnable {
     public void run() {
         Deck deck = new Deck(4, 3);
@@ -41,7 +39,7 @@ class CreateDeck2 implements Runnable {
         for (int i = 1; i < deck1.numOfCards + 1; i++) {
             if (deck1.head.getValue() != deck2.head.getValue()) {
                 throw new AssertionError("The deck is not correctly created."
-                        + "The card at position " + i + " is incorrect");
+                        + "The card at position " + i + " (and/or after) is incorrect.");
             }
             deck1.head = deck1.head.next;
             deck2.head = deck2.head.next;
@@ -367,13 +365,12 @@ class GenerateNextKeystreamValue2 implements Runnable {
     @Override
     public void run() {
         Deck deck = new Deck(1, 1); // AC RJ BJ
-        
+
         int seed = 31;
         Deck.gen.setSeed(seed);
         deck.shuffle();         // RJ BJ AC
 
-        int value = deck.generateNextKeystreamValue();      // case where lookupCard() hits a joker (two times to be exact)
-                                                            // and must repeat the keystream algorithm
+        int value = deck.generateNextKeystreamValue();
 
         if (value != 1) {
             throw new AssertionError("The method generateNextKeystreamValue() is " +
@@ -439,11 +436,9 @@ class GenerateNextKeystreamValue4 implements Runnable {
     }
 }
 
+// =========================== SOLITAIRE CIPHER ================================
 
-// =========================== SOLITAIRE CIPHER CLASS TESTS ================================
-
-
-class GetKeystream implements Runnable{
+class GetKeystream1 implements Runnable{
     @Override
     public void run() {
         // example case from the last page of pdf
@@ -464,6 +459,29 @@ class GetKeystream implements Runnable{
             throw new AssertionError("The method getKeystream() is not returning the correct keystream");
         }
 
+        System.out.println("assignment2.Test passed.");
+    }
+}
+class GetKeystream2 implements Runnable {
+    @Override
+    public void run()    {
+        Deck deck1 = new Deck(12,2);
+
+        int seed = 429;
+        Deck.gen.setSeed(seed);
+        deck1.shuffle();
+
+        SolitaireCipher cipher = new SolitaireCipher(deck1);
+        int [] keystream1 = cipher.getKeystream(5);
+
+        SolitaireCipher cipher2 = new SolitaireCipher(deck1);
+        int[] keystream2 = cipher2.getKeystream(5);
+
+        if (!Arrays.equals(keystream1, keystream2)) {
+            throw new AssertionError("The keystream values of the 2 ciphers are not the same. " +
+                    "\nExpected: [8, 10, 21, 16, 21] for both. \nGot " + Arrays.toString(keystream1) + 
+                    " for keystream1 and " + Arrays.toString(keystream2) + " for keystream2");
+        }
         System.out.println("assignment2.Test passed.");
     }
 }
@@ -499,10 +517,10 @@ class EncodingAndDecodingTest2 implements Runnable
         String message = "Heya! L%$@!%:ove(!#%$", decodedMessage="HEYALOVE";
 
         SolitaireCipher cipher = new SolitaireCipher(deck);
-        String encodedMessage= (cipher.encode(message));
+        String encodedMessage = (cipher.encode(message));
 
         cipher = new SolitaireCipher(deck);
-        String decodeAttempt=cipher.decode(encodedMessage);
+        String decodeAttempt = cipher.decode(encodedMessage);
 
         if(!decodeAttempt.equals(decodedMessage)) {
             throw new AssertionError("Error encoding/ decoding. \n Expected encoded message: IFZBMPWF. I received "+encodedMessage+"\n" +
@@ -512,38 +530,29 @@ class EncodingAndDecodingTest2 implements Runnable
 
     }
 }
-
 class SolitaireCipher1 implements Runnable {
     @Override
-    public void run()    {
-        Deck deck1 = new Deck(2,2);
+    public void run() {
+        Deck deck = new Deck(5, 2);
 
-        int seed = 10;
+        int seed = 123;
         Deck.gen.setSeed(seed);
-        deck1.shuffle();
+        deck.shuffle();
 
-        String message = "You are amazing!!", message2 = "YOUAREAMAZING";
+        String message = "You are amazing!", message2 = "YOUAREAMAZING";
 
-        SolitaireCipher cipher = new SolitaireCipher(deck1);
-        cipher.getKeystream(13);
-        String encodedMessage = cipher.encode(message);
+        SolitaireCipher cipher1 = new SolitaireCipher(deck);
+        String encodedMessage = cipher1.encode(message);
 
-        SolitaireCipher cipher2 = new SolitaireCipher(deck1);
-        cipher2.getKeystream(13);
+        SolitaireCipher cipher2 = new SolitaireCipher(deck);
         String decodedMessage = cipher2.decode(encodedMessage);
 
-        if (!Arrays.equals(cipher.getKeystream(13), cipher2.getKeystream(13))) {
-            throw new AssertionError("The keystream values used to encode and decode are not the same");
-        }
-
-        if (!encodedMessage.equals("NDWOGSPNCNKBU")) {
+        if (!encodedMessage.equals("ASJQGIECECMOL")) {
             throw new AssertionError("The encoded message is not correct");
         }
-
         if (!decodedMessage.equals(message2)) {
             throw new AssertionError("The decoded message is not correct");
         }
-
         System.out.println("assignment2.Test passed.");
     }
 }
@@ -567,10 +576,12 @@ public class A2_Tester2 {
             "assignment2.GenerateNextKeystreamValue2",
             "assignment2.GenerateNextKeystreamValue3",
             "assignment2.GenerateNextKeystreamValue4",
-            "assignment2.GetKeystream",
+            "assignment2.GetKeystream1",
+            "assignment2.GetKeystream2",
             "assignment2.EncodingAndDecodingTest1",
             "assignment2.EncodingAndDecodingTest2",
             "assignment2.SolitaireCipher1"
+
     };
 
     public static void main(String[] args) {
