@@ -570,8 +570,7 @@ public class A2_Tester2 {
             "assignment2.GetKeystream",
             "assignment2.EncodingAndDecodingTest1",
             "assignment2.EncodingAndDecodingTest2",
-            "assignment2.SolitaireCipher1",
-            "assignment2.SolitaireCipher2",
+            "assignment2.SolitaireCipher1"
     };
 
     public static void main(String[] args) {
