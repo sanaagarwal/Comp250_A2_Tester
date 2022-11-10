@@ -567,31 +567,7 @@ class SolitaireCipher1 implements Runnable {
     }
 }
 
-class SolitaireCipher2 implements Runnable{
-    public void run() {
-        // example case from the last page of pdf
-
-        Deck deck = new Deck(5, 2);
-        // AC 2C 3C 4C 5C AD 2D 3D 4D 5D RJ BJ
-
-        int seed = 10;
-        Deck.gen.setSeed(seed);
-        deck.shuffle();     // 3C 3D AD 5C BJ 2C 2D 4D AC RJ 4C 5D
-
-        SolitaireCipher cipher = new SolitaireCipher(deck);
-        int[] keystream = cipher.getKeystream(12);
-
-        int[] expected = {4, 4, 15, 3, 3, 2, 1, 14, 16, 17, 17, 14};
-
-        if (!Arrays.equals(keystream, expected)) {
-            throw new AssertionError("The method getKeystream() is not returning the correct keystream");
-        }
-
-        System.out.println("assignment2.Test passed.");
-    }
-}
-
-class SolitaireCipher3 implements Runnable {
+class SolitaireCipher2 implements Runnable {
     @Override
     public void run()    {
         Deck deck = new Deck(2,1);
@@ -612,9 +588,6 @@ class SolitaireCipher3 implements Runnable {
         String encodedMessage = cipher1.encode(message);
         String decodedMessage = cipher2.decode(encodedMessage);
 
-        System.out.println("Your encoded message was: " + encodedMessage);
-        System.out.println("Your decoded message was: " + decodedMessage);
-
         if (!Arrays.equals(keystream, expected)) {
             throw new AssertionError("The method getKeystream() is not returning the correct keystream");
         }
@@ -624,7 +597,7 @@ class SolitaireCipher3 implements Runnable {
         if (!decodedMessage.equals(message2)) {
             throw new AssertionError("The decoded message is not correct");
         }
-        System.out.println("Mario and Luigi Test passed :)");
+        System.out.println("assignment2.Test passed.");
     }
 }
 
@@ -654,7 +627,6 @@ public class A2_Tester2 {
             "assignment2.EncodingAndDecodingTest2",
             "assignment2.SolitaireCipher1",
             "assignment2.SolitaireCipher2",
-            "assignment2.SolitaireCipher3"
 
     };
 
