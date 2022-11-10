@@ -67,6 +67,25 @@ class CreateDeck3 implements Runnable {
     }
 }
 
+class DeepCopyDeck1 implements Runnable{
+    public void run(){
+        // creating and copying an empty deck
+        Deck deck = new Deck();
+        Deck copy = new Deck(deck);
+
+        if (!(deck.head == null && copy.head == null)) {
+            throw new AssertionError("An empty deck is not being initialized with default values."
+                    + "The head of the deck and copy deck should be null.");
+        }
+
+        if (!(deck.numOfCards == 0 && copy.numOfCards == 0)) {
+            throw new AssertionError("An empty deck is not being initialized with default values."
+                    + "The number of cards in the deck and copy deck should be 0.");
+        }
+        System.out.println("assignment2.Test passed.");
+    }
+}
+
 class TripleCut1 implements Runnable {
     @Override
     public void run() {
@@ -608,6 +627,7 @@ public class A2_Tester2 {
             "assignment2.CreateDeck1",
             "assignment2.CreateDeck2",
             "assignment2.CreateDeck3",
+            "assignment2.DeepCopyDeck1",
             "assignment2.TripleCut1",
             "assignment2.TripleCut2",
             "assignment2.TripleCut3",
@@ -627,7 +647,6 @@ public class A2_Tester2 {
             "assignment2.EncodingAndDecodingTest2",
             "assignment2.SolitaireCipher1",
             "assignment2.SolitaireCipher2",
-
     };
 
     public static void main(String[] args) {
@@ -657,6 +676,5 @@ public class A2_Tester2 {
             System.out.println("Note: They are all separate messages. Decode them using different cipher objects.");
             System.out.println("========================================");
         }
-
     }
 }
