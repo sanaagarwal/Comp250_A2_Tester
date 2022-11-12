@@ -88,6 +88,7 @@ class DeepCopyDeck1 implements Runnable{
 
 class MoveCard1 implements Runnable{
     public void run(){
+        // for when a joker is the head
         Deck deck = new Deck();
         Deck.Joker rjoker = deck.new Joker("red");
         Deck.PlayingCard card1 = deck.new PlayingCard("clubs", 1);
@@ -108,7 +109,7 @@ class MoveCard1 implements Runnable{
         boolean rjRef = deck.head.next == card4 && deck.head.prev == card3;
 
         if (deck.head != rjoker) {
-            throw new AssertionError("Joker is not being moved after moveCard().");
+            throw new AssertionError("The head of the deck is changing from RJ to " + deck.head);
         }
         if (!rjRef) {
             throw new AssertionError("References of the Head (RJ) are not correct.");
