@@ -6,7 +6,7 @@ So far it has testers for:
 #### Deck class
   1. `Deck(int numOfCardsPerSuit, int numOfSuits)`
   2. `Deck (Deck d)`
-  3. `moveCard(Card c, int p)
+  3. `moveCard(Card c, int p)`
   4. `tripleCut(Card firstCard, Card secondCard)`
   5. `countCut()`
   6. `locateJoker(String color)` 
